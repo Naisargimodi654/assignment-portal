@@ -1,0 +1,56 @@
+import axios from "axios";
+
+// Base URL of your Spring Boot backend
+const API_URL = "http://localhost:8080";
+
+// ---------------- Student APIs ----------------
+
+// Login API
+export const login = async (username, password) => {
+  const response = await axios.post(`${API_URL}/login`, { username, password });
+  return response.data;
+};
+
+// Upload Assignment API
+export const uploadAssignment = async (formData) => {
+  const response = await axios.post(`${API_URL}/assignments/upload`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
+// Get all assignments for student/faculty
+export const getAssignments = async () => {
+  const response = await axios.get(`${API_URL}/assignments`);
+  return response.data;
+};
+
+// Get feedback and marks for student
+export const getFeedback = async () => {
+  const response = await axios.get(`${API_URL}/feedback`);
+  return response.data;
+};
+
+// ---------------- Admin APIs ----------------
+
+// Get all users (admin)
+export const getUsers = async () => {
+  const response = await axios.get(`${API_URL}/users`);
+  return response.data;
+};
+
+// Update user role (admin)
+export const updateUserRole = async (userId, role) => {
+  const response = await axios.put(`${API_URL}/users/${userId}/role`, { role });
+  return response.data;
+};
+
+// ---------------- Faculty APIs ----------------
+
+// Add comment/marks for assignment
+export const gradeAssignment = async (assignmentId, marks, comment) => {
+  const response = await axios.post(`${API_URL}/assignments/${assignmentId}/grade`, { marks, comment });
+  return response.data;
+};
+
+
